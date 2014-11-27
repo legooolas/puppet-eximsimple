@@ -1,13 +1,16 @@
 require 'beaker-rspec'
+require 'beaker-rspec/helpers/serverspec'
 
-hosts.each do |host|
-  # Install Puppet
-  foss_opts = { :default_action => 'gem_install' }
-
-  if default.is_pe?; then install_pe; else install_puppet( foss_opts ); end
-
+unless ENV['BEAKER_provision'] == 'no'
   hosts.each do |host|
-    on hosts, "mkdir -p #{host['distmoduledir']}"
+    # Install Puppet
+    foss_opts = { :default_action => 'gem_install' }
+
+
+    hosts.each do |host|
+      if default.is_pe?; then install_pe; else install_puppet( foss_opts ); end
+      on hosts, "mkdir -p #{host['distmoduledir']}"
+    end
   end
 end
 
