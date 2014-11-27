@@ -1,11 +1,11 @@
-# == Class: eximsmarthost
+# == Class: eximsimple
 #
 # A module to configuring exim as a simple MTA to deliver all mail via a smarthost.
 # USeful for any system that needs to deliver mail.
 #
 # === Examples
 #
-#  class { 'eximsmarthost':
+#  class { 'eximsimple':
 #    domain => 'example.com',
 #    root => 'root@example.com',
 #    smarthost => 'smtp.example.com/mx',
@@ -19,12 +19,12 @@
 #
 # Copyright 2014 Dan Foster, unless otherwise noted.
 #
-class eximsmarthost (
-  $smarthost = $eximsmarthost::params::smarthost,
-  $domain = $eximsmarthost::params::domain,
-  $local_interfaces = $eximsmarthost::params::local_interfaces,
-  $root = $eximsmarthost::params::root,
-) inherits ::eximsmarthost::params {
+class eximsimple (
+  $smarthost = $eximsimple::params::smarthost,
+  $domain = $eximsimple::params::domain,
+  $local_interfaces = $eximsimple::params::local_interfaces,
+  $root = $eximsimple::params::root,
+) inherits ::eximsimple::params {
 
   package { 'postfix':
     ensure => absent
@@ -40,14 +40,14 @@ class eximsmarthost (
 
   file { '/etc/exim/exim.conf':
     ensure  => 'present',
-    content => template('eximsmarthost/exim.conf.erb'),
+    content => template('eximsimple/exim.conf.erb'),
     notify  => Service[exim],
     require => Package['exim'],
   }
 
 
   file { '/etc/aliases':
-    content => template('eximsmarthost/aliases.erb')
+    content => template('eximsimple/aliases.erb')
   }
 }
 

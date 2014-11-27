@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'eximsmarthost' do
+describe 'eximsimple' do
   it {
     should contain_package('postfix').with({
       'ensure' => 'absent',

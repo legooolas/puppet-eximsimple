@@ -1,4 +1,4 @@
-# == Class: eximsmarthost::params
+# == Class: eximsimple::params
 #
 # === Parameters
 #
@@ -19,7 +19,7 @@
 #   e.g. root-mailbox@example.com
 #
 
-class eximsmarthost::params {
+class eximsimple::params {
     $smarthost = 'smtp.example.com/mx'
     $domain = 'example.com'
     $local_interfaces = '127.0.0.1'
