@@ -3,24 +3,6 @@
 # A module to configuring exim as a simple MTA to deliver all mail via a smarthost.
 # USeful for any system that needs to deliver mail.
 #
-# === Parameters
-#
-# [smarthost]
-#   The host to send all mail via. Can be any valid format that Exim accepts.
-#   e.g. smtp.example.com/MX
-#
-# [domain]
-#   The domain to add to the shortname.
-#   e.g example.com
-#
-# [local_interfaces]
-#   The interface to listen on.
-#   e.g. 127.0.0.1
-#
-# [root]
-#   The address to send mails for to root to.
-#   e.g. root-mailbox@example.com
-#
 # === Examples
 #
 #  class { 'eximsmarthost':
@@ -38,10 +20,10 @@
 # Copyright 2014 Dan Foster, unless otherwise noted.
 #
 class eximsmarthost (
-  $smarthost = $exim::params::smarthost,
-  $domain = $exim::params::domain,
-  $local_interfaces = $exim::params::local_interfaces,
-  $root = $exim::params::root,
+  $smarthost = $eximsmarthost::params::smarthost,
+  $domain = $eximsmarthost::params::domain,
+  $local_interfaces = $eximsmarthost::params::local_interfaces,
+  $root = $eximsmarthost::params::root,
 ) inherits ::eximsmarthost::params {
 
   package { 'postfix':
