@@ -18,6 +18,10 @@ RSpec.configure do |c|
   # Readable test descriptions
   c.formatter = :documentation
 
+  pp = <<-EOS
+    class { 'epel': }
+  EOS
+
   # Configure all nodes in nodeset
   c.before :suite do
     # Install module
@@ -25,6 +29,7 @@ RSpec.configure do |c|
     hosts.each do |host|
       on host, puppet('module','install','puppetlabs-stdlib'), { :acceptable_exit_codes => [0,1] }
       on host, puppet('module','install','stahnma-epel'), { :acceptable_exit_codes => [0,1] }
+      apply_manifest(pp, :catch_failures => true)
     end
   end
 end

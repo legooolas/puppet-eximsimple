@@ -4,7 +4,6 @@ describe 'eximsmarthost class' do
   describe 'running puppet code' do
     it 'should work with no errors' do
       pp = <<-EOS
-        class { 'epel': }
         class { 'eximsmarthost': }
       EOS
 
