@@ -2,7 +2,7 @@ require 'spec_helper_acceptance'
 
 describe 'eximsmarthost class' do
   describe 'running puppet code' do
-    it 'should work with no errors' do
+    it 'apply manifest' do
       pp = <<-EOS
         class { 'eximsmarthost': }
       EOS
