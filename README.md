@@ -15,65 +15,77 @@
 
 ## Overview
 
-A one-maybe-two sentence summary of what the module does/what problem it solves.
-This is your 30 second elevator pitch for your module. Consider including
-OS/Puppet version it works with.
+A module to configuring exim as a simple MTA to deliver all mail via a smarthost.
+It should be useful for any satellite system that needs to deliver mail via a central relay.
 
 ## Module Description
 
-If applicable, this section should have a brief description of the technology
-the module integrates with and what that integration enables. This section
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?"
-
-If your module has a range of functionality (installation, configuration,
-management, etc.) this is the time to mention it.
+This module will install Exim from EPEL and remove Postfix if it is installed (as installed by default on RHEL based distros).
+It will configure Exim to route all mail via the `smarthost` you define and qualify any unqualified mail names with the defined `domain`.
+Any mail destined for `root` will be sent to address defined in `root` parameter.
 
 ## Setup
 
 ### What eximsimple affects
 
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form.
+* Exim package
+* Postfix package (removes)
+* Exim config (/etc/exim.conf)
+* Aliases (/etc/aliases)
+* Exim Service
 
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
-
-### Beginning with eximsimple
-
-The very basic steps needed for a user to get the module up and running.
-
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you may wish to include an additional section here: Upgrading
-(For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
 
 ## Usage
 
-Put the classes, types, and resources for customizing, configuring, and doing
-the fancy stuff with your module here.
+The default parameters are unlikely to be suitable for your environment, make sure you overwrite them to suitable values:
+
+```
+class { '::eximsimple':
+  smarthost => 'smtp.mydomain.com',
+  root      => 'myteam@mydomain.com',
+  domain    => 'mydomain.com',
+} 
+```
 
 ## Reference
 
-Here, list the classes, types, providers, facts, etc contained in your module.
-This section should include all of the under-the-hood workings of your module so
-people know what the module is touching on their system but don't need to mess
-with things. (We are working on automating this section!)
+### Classes
+
+#### Public Classes
+
+* eximsimple: Main class, includes all other classes.
+
+#### Private Classes
+
+* eximsimple::private: Handles default parameters.
+
+### Parameters
+
+The following parameters are available in the eximsimple module:
+
+####`domain`
+
+The domain to add to any unqualified mail addresses.
+
+####`root`
+
+The address to send mails for root to.
+
+####`smarthost`
+
+The host to send all mail via. Can be any valid format that Exim accepts. e.g. `smtp.example.com/MX`.
+
+####`local_interfaces`
+
+The interface to listen on. Defaults to `127.0.0.1`.
 
 ## Limitations
 
-This is where you list OS compatibility, version compatibility, etc.
+This module has only been tested on the following Operating Systems:
+* RHEL 6
+* CentOS 6
 
 ## Development
 
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
+Feel free to submit pull requests.
 
-## Release Notes/Contributors/Etc **Optional**
-
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You may also add any additional sections you feel are
-necessary or important to include here. Please use the `## ` header.
