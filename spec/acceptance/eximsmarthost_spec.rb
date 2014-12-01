@@ -31,6 +31,13 @@ describe 'eximsimple class' do
   end
 
   describe port(25) do
-    it { should be_listening }
+    it do
+      # When provisioning a box, it takes a while for Exim to start listening.
+      # Dirty hack: sleep and hope it comes up in time.
+      unless ENV['BEAKER_provision'] == 'no'
+        sleep(30)
+      end
+      should be_listening
+    end
   end
 end
