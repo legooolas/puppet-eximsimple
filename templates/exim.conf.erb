@@ -1,7 +1,7 @@
 qualify_domain = <%= @domain %>
 never_users = root
 deliver_drop_privilege = true
-local_interfaces = <%= local_interfaces %>
+local_interfaces = <%= @local_interfaces %>
 ignore_bounce_errors_after = 2d
 
 acl_smtp_connect = acl_check_connection
