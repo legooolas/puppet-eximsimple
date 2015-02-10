@@ -1,7 +1,6 @@
 qualify_domain = <%= @domain %>
 never_users = root
 deliver_drop_privilege = true
-local_interfaces = <%= @local_interfaces %>
 ignore_bounce_errors_after = 2d
 
 acl_smtp_connect = acl_check_connection
@@ -9,7 +8,7 @@ acl_smtp_connect = acl_check_connection
 begin acl
 
 acl_check_connection:
-    accept hosts = <%= local_interfaces %>
+    accept hosts = <%= @local_interfaces %>
     drop message = You are not permitted to connect to this service
 
 begin routers
