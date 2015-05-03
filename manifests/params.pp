@@ -24,4 +24,18 @@ class eximsimple::params {
     $domain = 'example.com'
     $local_interfaces = '127.0.0.1'
     $root = 'root@example.com'
+
+    case $::osfamily {
+      'RedHat': {
+        $package_name = 'exim'
+        $service_name = 'exim'
+      }
+      'Debian': {
+        $package_name = 'exim4-daemon-light'
+        $service_name = 'exim4'
+      }
+      default: {
+        fail('Unknown $osfamily. This module only supports RedHat and Debian based systems.')
+      }
+    }
 }

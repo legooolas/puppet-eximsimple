@@ -24,25 +24,49 @@ class eximsimple (
   $domain = $eximsimple::params::domain,
   $local_interfaces = $eximsimple::params::local_interfaces,
   $root = $eximsimple::params::root,
+  $package_name = $eximsimple::params::package_name,
+  $service_name = $eximsimple::params::service_name,
 ) inherits ::eximsimple::params {
 
   package { 'postfix':
     ensure => absent
   }
 
-  package { 'exim':
+  package { $package_name:
     ensure => present
   }
 
-  service { 'exim':
-    ensure => running
+  service { $service_name:
+    ensure  => running,
+    require => Package[$package_name]
   }
 
-  file { '/etc/exim/exim.conf':
-    ensure  => 'present',
-    content => template('eximsimple/exim.conf.erb'),
-    notify  => Service[exim],
-    require => Package['exim'],
+
+  case $::osfamily {
+    'RedHat': {
+      file { '/etc/exim/exim.conf':
+        ensure  => 'present',
+        content => template('eximsimple/exim.conf.erb'),
+        notify  => Service[$service_name],
+        require => Package[$package_name],
+      }
+    }
+    'Debian': {
+      file { '/etc/exim4/update-exim4.conf.conf':
+        ensure  => 'present',
+        content => template('eximsimple/update-exim4.conf.conf'),
+      }
+
+      exec { '/usr/sbin/update-exim4.conf':
+        subscribe   => File['/etc/exim4/update-exim4.conf.conf'],
+        refreshonly => true,
+        require     => Package[$package_name],
+      }
+    }
+    default: {
+      fail('Unknown $osfamily. This module only supports RedHat and Debian based systems.')
+    }
+
   }
 
 

@@ -84,6 +84,7 @@ The interface to listen on. Defaults to `127.0.0.1`.
 This module has only been tested on the following Operating Systems:
 * RHEL 6
 * CentOS 6
+* Debian 7 (Wheezy)
 
 ## Development
 
