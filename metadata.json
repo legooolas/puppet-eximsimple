@@ -1,6 +1,6 @@
 {
   "name": "danfoster-eximsimple",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "Dan Foster",
   "summary": "A simple module to configure exim to route mail via a smarthost.",
   "license": "Apache 2.0",
