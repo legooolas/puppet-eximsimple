@@ -8,8 +8,32 @@
   "project_page": "https://github.com/danfoster/puppet-eximsimple",
   "issues_url": "https://github.com/danfoster/puppet-eximsimple/issues",
   "tags": ["exim", "rhel", "centos", "debian"],
+  "operatingsystem_supprt": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "7"
+        "8",
+      ]
+    },
+  ],
   "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"},
     {"name":"stahnma-epel","version_requirement":">= 1.0.0"}
   ]
 }
