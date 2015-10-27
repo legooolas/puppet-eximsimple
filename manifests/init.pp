@@ -24,6 +24,7 @@ class eximsimple (
   $domain = $eximsimple::params::domain,
   $local_interfaces = $eximsimple::params::local_interfaces,
   $root = $eximsimple::params::root,
+  $root_aliases = $eximsimple::params::root_aliases,
   $package_name = $eximsimple::params::package_name,
   $service_name = $eximsimple::params::service_name,
 ) inherits ::eximsimple::params {

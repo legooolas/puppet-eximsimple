@@ -1,3 +1,5 @@
+# File managed by Puppet -- do not edit or changes will be lost!
+
 # Basic system aliases -- these MUST be present.
 mailer-daemon:  postmaster
 postmaster:     root
@@ -82,5 +84,10 @@ support:        postmaster
 
 # trap decode to catch security attacks
 decode:         root
+
+<% @root_aliases.each do |u| -%>
+# Additional names to make aliases of root
+<%= u %>:       root
+<% end -%>
 
 root: <%= @root %>

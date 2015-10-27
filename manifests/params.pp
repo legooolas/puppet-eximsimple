@@ -18,12 +18,17 @@
 #   The address to send mails for to root to.
 #   e.g. root-mailbox@example.com
 #
+# [root_aliases]
+#   Additional usernames to make as root aliases
+#   e.g. [ 'someuser', 'otheruser' ]
+#
 
 class eximsimple::params {
     $smarthost = 'smtp.example.com/mx'
     $domain = 'example.com'
     $local_interfaces = '127.0.0.1'
     $root = 'root@example.com'
+    $root_aliases = []
 
     case $::osfamily {
       'RedHat': {
